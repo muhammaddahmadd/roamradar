@@ -1,9 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { ESLint } from 'eslint'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import eslint from 'vite-plugin-eslint'; // ✅ Correct ESLint plugin
 
-
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), ESLint()],
-})
+  plugins: [react(), eslint()], // ✅ Now ESLint works properly with Vite
+});
