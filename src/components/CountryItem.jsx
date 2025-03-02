@@ -1,10 +1,16 @@
 import styles from "./CountryItem.module.css";
 
-function CountryItem({ country }) {
+function CountryItem({ emoji, country }) {
+
+  
+  
+  // const unique_countries = new Set([country])
+  // console.log(unique_countries)
+
   return (
     <li className={styles.countryItem}>
-      <span>{country.emoji}</span>
-      <span>{country.country}</span>
+      <span>{emoji}</span>
+      <span>{country}</span>
     </li>
   );
 }

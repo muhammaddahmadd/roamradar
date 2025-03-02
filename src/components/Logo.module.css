@@ -1,10 +1,4 @@
 .logo {
   height: 5.2rem;
-  mix-blend-mode: exclusion;
+  /* mix-blend-mode: exclusion; */
 }
-.main{
- background: #ffffff;
-  padding: 8px 10px 3px 8px;
-   border-radius: 42px;
-}
-   
