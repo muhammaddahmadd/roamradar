@@ -9,6 +9,7 @@ const API_URL = "https://fake-api-yyfi.onrender.com";
 function CitiesProvider({children}){
     const [cities, setCities] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [currentCity, setCurrentCity] = useState({})
     // const [error, setError] = useState("")
   
     // console.log(error)
@@ -39,12 +40,34 @@ function CitiesProvider({children}){
       getCities()
      },[])
     
-    return <CitiesContext.Provider value={{
-        cities,
-        isLoading
-    }}>
+     async function getCurrentCity(id) {
+      try {
+       const res = await fetch(`${API_URL}/cities/${id}`);
+       if (res.ok) {
+        const data =await res.json()
+        console.log(data)
+        setCurrentCity(data)
+       } else {
+        throw new Error ("Error happened fetching data")
+       }
+      } catch(err) {
+        console.log(err.message)
+      }
+     }
+
+
+    return (
+      <CitiesContext.Provider
+        value={{
+          cities,
+          isLoading,
+          currentCity,
+          getCurrentCity,
+        }}
+      >
         {children}
-    </CitiesContext.Provider>
+      </CitiesContext.Provider>
+    );
 }
 
 
