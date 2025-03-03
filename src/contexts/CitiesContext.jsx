@@ -1,22 +1,23 @@
-import { useContext } from "react";
+import { createContext, useContext } from "react";
+import { useState, useEffect } from "react";
 
-const CitiesContext = useContext();
+const CitiesContext = createContext();
 
-const BASE_URl = "http://localhost:9000";
-// const API_URL = "https://fake-api-yyfi.onrender.com";
+// const BASE_URl = "http://localhost:9000";
+const API_URL = "https://fake-api-yyfi.onrender.com";
 
 function CitiesProvider({children}){
     const [cities, setCities] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     // const [error, setError] = useState("")
   
-    
+    // console.log(error)
      useEffect(()=> {
       async  function getCities() {
         setIsLoading(true)
-        setError("")
+        // setError("")
         try {
-          const res = await fetch(`${BASE_URl}/cities`);
+          const res = await fetch(`${API_URL}/cities`);
           
           if(!res.ok) {
            throw new Error ("Error occured fetching data")
@@ -28,10 +29,10 @@ function CitiesProvider({children}){
         }
         catch(err) {
           console.log(err.message)
-          setError(err.message)
+          // setError(err.message)
         } finally {
           setIsLoading(false)
-          setError("")
+          // setError("")
         }
       } 
       
@@ -50,7 +51,7 @@ function CitiesProvider({children}){
 function useCities(){
     const context = useContext(CitiesContext)
     if(context === undefined) throw new Error("Context being used somewhere not supposed to be")
-    return context
+    return context;
 }
 
 export { useCities, CitiesProvider}

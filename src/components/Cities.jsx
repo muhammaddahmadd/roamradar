@@ -3,7 +3,9 @@ import Spinner from "./Spinner"
 import CityItem from "./CityItem";
 import styles from './Cities.module.css'
 import Message from "./Message"
-const Cities = ({ isLoading, cities }) => {
+import { useCities } from "../contexts/CitiesContext";
+const Cities = () => {
+  const {isLoading, cities} = useCities()
 
     if(isLoading) return  <Spinner />
     if (!cities.length) return <Message message={"Please start adding cities to your list"}/>
