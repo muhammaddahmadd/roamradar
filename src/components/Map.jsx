@@ -16,7 +16,6 @@ import useUrlLocation from "../hooks/useUrlLocation";
 
 function Map() {
   const [mapLat, mapLng] = useUrlLocation();
-  const navigate = useNavigate(); // ✅ Added navigate definition
   const [mapPosition, setMapPosition] = useState([40, 0]);
 
 
@@ -34,7 +33,7 @@ function Map() {
 
   
   return (
-    <div className={styles.mapContainer} onClick={()=>navigate("form")}>
+    <div className={styles.mapContainer} >
       <Button type="position" onClick={getPosition}>
         {isLoading ? "Loading.." : "Use Your Position"}
       </Button>

@@ -3,10 +3,12 @@
 import { useState } from "react";
 
 import styles from "./Form.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Button from "./Button";
 import BackButton from "./BackButton";
 import useUrlLocation from "../hooks/useUrlLocation";
+
+
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -16,6 +18,8 @@ export function convertToEmoji(countryCode) {
 }
 
 function Form() {
+
+
 
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
@@ -60,7 +64,7 @@ function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <Button type ="primary" onClick={""}>Add</Button>
+        <Button type ="primary" >Add</Button>
         {/* <Button type ="back" onClick={handleStepBack}>&larr; Back</Button> */}
         <BackButton/>
        
