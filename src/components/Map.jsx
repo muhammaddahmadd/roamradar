@@ -33,12 +33,8 @@ function Map() {
   }, [geoLocation, mapLat, mapLng]);
 
   
-function handleClickOpenForm(){
-navigate("form")
-}
-
   return (
-    <div className={styles.mapContainer} onClick={handleClickOpenForm}>
+    <div className={styles.mapContainer} onClick={()=>navigate("form")}>
       <Button type="position" onClick={getPosition}>
         {isLoading ? "Loading.." : "Use Your Position"}
       </Button>
@@ -79,12 +75,10 @@ function ChangeCenter({ position }) {
 function DetectClick() {
   const navigate = useNavigate();
   useMapEvents({
-    click: (e) => {
-      // console.log(e.latlng)
-     return navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
-
-    },
-  });
+    click: (e) => (
+      navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
+  
+  )});
   return null;
 }
 
