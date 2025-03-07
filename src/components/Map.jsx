@@ -22,14 +22,17 @@ function Map() {
   const { isLoading, position: geoLocation, getPosition } = useGeolocation();
   const { cities } = useCities();
 
-  // ✅ Improved effect to handle both geoLocation and searchParams
   useEffect(() => {
-    if (geoLocation?.lat && geoLocation?.lng) {
+    if (geoLocation) {
       setMapPosition([geoLocation.lat, geoLocation.lng]);
-    } else if (mapLat && mapLng) {
-      setMapPosition([mapLat, mapLng]);
-    }
-  }, [geoLocation, mapLat, mapLng]);
+    } 
+  }, [geoLocation]);
+
+useEffect(()=> {
+  if (mapLat && mapLng) {
+    setMapPosition(mapLat, mapLng)
+  }
+}, [mapLat, mapLng])
 
   
   return (
@@ -41,7 +44,7 @@ function Map() {
       <MapContainer
         className={styles.map}
         center={mapPosition}
-        zoom={13}
+        zoom={6}
         scrollWheelZoom={true}
       >
         <TileLayer
@@ -67,17 +70,16 @@ function Map() {
 
 function ChangeCenter({ position }) {
   const map = useMap();
-  map.setView(position);
+  if (position) {
+    map.setView(position);
+  }
   return null;
 }
 
 function DetectClick() {
   const navigate = useNavigate();
   useMapEvents({
-    click: (e) => (
-      navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
-  
-  )});
+    click: (e) => navigate(`from?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)});
   return null;
 }
 
