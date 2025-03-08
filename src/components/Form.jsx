@@ -7,7 +7,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Button from "./Button";
 import BackButton from "./BackButton";
 import useUrlLocation from "../hooks/useUrlLocation";
-
+import Spinner from "./Spinner"
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -27,16 +27,8 @@ function Form() {
   const [country, setCountry] = useState("");
   const [formError, setFormError] = useState("")
   const [emoji, setEmoji] = useState("")
-
-
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
-  const navigate = useNavigate()
-
-  function handleStepBack (e) {
-    e.preventDefault()
-    navigate(-1)
-  }
 
 
 
@@ -58,7 +50,7 @@ function Form() {
     getCityData()
   }, [mapLat, mapLng])
 
-
+  if (formLoading) return <Spinner/>
 
   return (
     <form className={styles.form}>
@@ -92,7 +84,6 @@ function Form() {
 
       <div className={styles.buttons}>
         <Button type ="primary" >Add</Button>
-        {/* <Button type ="back" onClick={handleStepBack}>&larr; Back</Button> */}
         <BackButton/>
        
       </div>
