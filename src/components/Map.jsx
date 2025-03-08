@@ -22,7 +22,7 @@ function Map() {
 
   const { isLoading, position: geoLocation, getPosition } = useGeolocation();
   const { cities } = useCities();
-  console.log(geoLocation);
+
   useEffect(() => {
     if (geoLocation) {
       setMapPosition([geoLocation.lat, geoLocation.lng]);
