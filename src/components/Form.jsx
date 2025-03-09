@@ -52,8 +52,13 @@ function Form() {
 
   if (formLoading) return <Spinner/>
 
+
+  function handleAddSubmission() {
+    
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onClick={handleAddSubmission}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
