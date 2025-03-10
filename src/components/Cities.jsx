@@ -6,7 +6,7 @@ import Message from "./Message"
 import { useCities } from "../contexts/CitiesContext";
 const Cities = () => {
   const {isLoading, cities} = useCities()
-
+  
     if(isLoading) return  <Spinner />
     if (!cities.length) return <Message message={"Please start adding cities to your list"}/>
 

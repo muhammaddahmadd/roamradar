@@ -10,13 +10,12 @@ function CitiesProvider({children}){
     const [cities, setCities] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [currentCity, setCurrentCity] = useState({})
-    // const [error, setError] = useState("")
-  
-    // console.log(error)
+
+
+
      useEffect(()=> {
       async  function getCities() {
         setIsLoading(true)
-        // setError("")
         try {
           const res = await fetch(`${API_URL}/cities`);
           
@@ -24,16 +23,14 @@ function CitiesProvider({children}){
            throw new Error ("Error occured fetching data")
           } else {
             const data = await res.json();
-            console.log(data)
             setCities(data)
           }
         }
         catch(err) {
           console.log(err.message)
-          // setError(err.message)
         } finally {
           setIsLoading(false)
-          // setError("")
+       
         }
       } 
       
@@ -54,7 +51,50 @@ function CitiesProvider({children}){
         console.log(err.message)
       }
      }
+ 
+ 
+     async function createCity(newCity) {
+   setIsLoading(true);
+   try {
+     const res = await fetch(`${API_URL}/cities`, {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(newCity),
+     });
 
+     if (!res.ok) throw new Error("Error creating city");
+
+     const data = await res.json();
+     setCities((prevCities) => [...prevCities, data]);
+   } catch (err) {
+     console.error("Error:", err.message);
+   } finally {
+     setIsLoading(false);
+   }
+ }
+
+
+async function deleteCity(id) {
+  setIsLoading(true);
+  try {
+    const res = await fetch(`${API_URL}/cities/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete city");
+    }
+
+
+    setCities((cities) => cities.filter((city) => city.id !== id));
+  } catch (err) {
+    console.error("Error deleting city:", err.message);
+  } finally {
+    setIsLoading(false);
+  }
+}
 
     return (
       <CitiesContext.Provider
@@ -63,6 +103,8 @@ function CitiesProvider({children}){
           isLoading,
           currentCity,
           getCurrentCity,
+          createCity,
+          deleteCity,
         }}
       >
         {children}

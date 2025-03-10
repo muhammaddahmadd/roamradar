@@ -16,8 +16,6 @@ import useUrlLocation from "../hooks/useUrlLocation";
 
 function Map() {
   const [mapLat, mapLng] = useUrlLocation();
-  // const urlPosition = [mapLat, mapLng];
-  // console.log(urlPosition)
   const [mapPosition, setMapPosition] = useState([40, 0]);
 
   const { isLoading, position: geoLocation, getPosition } = useGeolocation();
@@ -31,7 +29,7 @@ function Map() {
 
 useEffect(() => {
   if (mapLat && mapLng) {
-    setMapPosition([mapLat, mapLng]); // ✅ Correct, passing as an array
+    setMapPosition([mapLat, mapLng]); //  Correct, passing as an array
   }
 }, [mapLat, mapLng]);
 
@@ -64,7 +62,7 @@ useEffect(() => {
         ))}
 
         <ChangeCenter
-          position={mapLat && mapLng ? [mapLat, mapLng] : mapPosition}
+          position={mapPosition}
         />
 
         <DetectClick />
