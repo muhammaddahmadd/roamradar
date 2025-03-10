@@ -20,7 +20,6 @@ async function handleSignIn(e){
 
     try {
       await login(email, password);
-      console.log("User signed in successfully");
     } catch (error) {
       setError(error.message);
     } finally {

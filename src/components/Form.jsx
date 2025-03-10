@@ -73,7 +73,7 @@ function Form() {
       notes,
       position: {mapLat, mapLng}
     }
-    console.log(newCity, "new city")
+
    await createCity(newCity)
 
     navigate("/app/cities")
