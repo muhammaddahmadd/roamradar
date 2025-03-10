@@ -52,18 +52,22 @@ useEffect(() => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {cities.map((city) => (
-          <Marker
-            key={city.id}
-            position={[city.position.lat, city.position.lng]}
-          >
-            <Popup>{city.name || "A city location"}</Popup>
-          </Marker>
-        ))}
+        {cities
+          .filter(
+            (city) =>
+              city.position?.lat !== undefined &&
+              city.position?.lng !== undefined
+          ) // Ensure lat/lng exist
+          .map((city) => (
+            <Marker
+              key={city.id}
+              position={[city.position.lat, city.position.lng]}
+            >
+              <Popup>{city.name || "A city location"}</Popup>
+            </Marker>
+          ))}
 
-        <ChangeCenter
-          position={mapPosition}
-        />
+        <ChangeCenter position={mapPosition} />
 
         <DetectClick />
       </MapContainer>
@@ -73,11 +77,12 @@ useEffect(() => {
 
 function ChangeCenter({ position }) {
   const map = useMap();
-  if (position) {
+  if (position && position[0] !== undefined && position[1] !== undefined) {
     map.setView(position);
   }
   return null;
 }
+
 
 function DetectClick() {
   const navigate = useNavigate();
