@@ -1,33 +1,26 @@
-import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "../firebase"; // ✅ Import the correct instance
+import { useEffect, useState } from "react";
 import PageNav from "../components/PageNav";
 import styles from "./Login.module.css";
+import { useAuth } from "../contexts/useAuth";
+import { replace, useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 export default function Login() {
-  const [email, setEmail] = useState("jack@example.com");
-  const [password, setPassword] = useState("qwerty");
+  const [email, setEmail] = useState("ranaahmad131@gmail.com");
+  const [password, setPassword] = useState("test123.");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  const { login, isAuthenticated } = useAuth();
 
-  const handleAuth = async (e, type) => {
+async function handleSignIn(e){
     e.preventDefault();
     setError(null);
     setLoading(true);
 
     try {
-      if (type === "signup") {
-        await createUserWithEmailAndPassword(auth, email, password);
-        console.log("User signed up successfully");
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log("User signed in successfully");
-      }
-      setEmail("");
-      setPassword("");
+      await login(email, password);
+      console.log("User signed in successfully");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -35,12 +28,19 @@ export default function Login() {
     }
   };
 
+useEffect(() => {
+  if (isAuthenticated) {
+    navigate("/app", { replace: true });
+  }
+}, [isAuthenticated, navigate]);
+
+
   const isValid = email.includes("@") && password.length > 6;
 
   return (
     <main className={styles.login}>
       <PageNav />
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSignIn}>
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
           <input
@@ -63,22 +63,9 @@ export default function Login() {
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <div>
-          <button
-            type="submit"
-            onClick={(e) => handleAuth(e, "signin")}
-            disabled={!isValid}
-          >
-            {loading ? "Signing In..." : "Sign In"}
-          </button>
-          <button
-            type="submit"
-            onClick={(e) => handleAuth(e, "signup")}
-            disabled={!isValid}
-          >
-            {loading ? "Signing Up..." : "Sign Up"}
-          </button>
-        </div>
+        <Button type="primary" disabled={!isValid || loading}>
+          {loading ? "Signing In..." : "Sign In"}
+        </Button>
       </form>
     </main>
   );

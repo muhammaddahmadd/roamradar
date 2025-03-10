@@ -30,7 +30,7 @@ function CityItem({ city }) {
     emoji,
     date,
     id,
-    position: { mapLat, mapLng },
+    position: {lat: mapLat, lng: mapLng },
   } = city;
 
 
