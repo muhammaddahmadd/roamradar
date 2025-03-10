@@ -15,7 +15,6 @@ const formatDate = (date) =>
 function City() {
   const { currentCity, getCurrentCity } = useCities();
   const {id} = useParams()
-  const navigate = useNavigate()
   
   const { cityName, emoji, date, notes } = currentCity;
 

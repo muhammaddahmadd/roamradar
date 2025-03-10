@@ -1,122 +1,142 @@
-import { createContext, useContext } from "react";
-import { useState, useEffect } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 
 const CitiesContext = createContext();
 
-// const BASE_URl = "http://localhost:9000";
+// API URL
 const API_URL = "https://fake-api-yyfi.onrender.com";
 
-function CitiesProvider({children}){
-    const [cities, setCities] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [currentCity, setCurrentCity] = useState({})
+// Initial State
+const initialState = {
+  isLoading: false,
+  cities: [],
+  currentCity: {},
+  error: "",
+};
 
 
+// Reducer Function
+function reducer(state, action) {
+  switch (action.type) {
+    case "LOADING":
+      return { ...state, isLoading: true, error: "" };
 
-     useEffect(()=> {
-      async  function getCities() {
-        setIsLoading(true)
-        try {
-          const res = await fetch(`${API_URL}/cities`);
-          
-          if(!res.ok) {
-           throw new Error ("Error occured fetching data")
-          } else {
-            const data = await res.json();
-            setCities(data)
-          }
-        }
-        catch(err) {
-          console.log(err.message)
-        } finally {
-          setIsLoading(false)
-       
-        }
-      } 
-      
-      getCities()
-     },[])
-    
-     async function getCurrentCity(id) {
-      try {
-       const res = await fetch(`${API_URL}/cities/${id}`);
-       if (res.ok) {
-        const data =await res.json()
-        console.log(data)
-        setCurrentCity(data)
-       } else {
-        throw new Error ("Error happened fetching data")
-       }
-      } catch(err) {
-        console.log(err.message)
-      }
-     }
- 
- 
-     async function createCity(newCity) {
-   setIsLoading(true);
-   try {
-     const res = await fetch(`${API_URL}/cities`, {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(newCity),
-     });
+    case "CITIES_LOADED":
+      return { ...state, cities: action.payload, isLoading: false };
 
-     if (!res.ok) throw new Error("Error creating city");
+    case "CURRENT_CITY_LOADED":
+      return { ...state, currentCity: action.payload, isLoading: false };
 
-     const data = await res.json();
-     setCities((prevCities) => [...prevCities, data]);
-   } catch (err) {
-     console.error("Error:", err.message);
-   } finally {
-     setIsLoading(false);
-   }
- }
+    case "CITY_CREATED":
+      return {
+        ...state,
+        cities: [...state.cities, action.payload],
+        isLoading: false,
+        currentCity: action.payload
+      };
 
+    case "CITY_DELETED":
+      return {
+        ...state,
+        cities: state.cities.filter((city) => city.id !== action.payload),
+        isLoading: false,
+      };
 
-async function deleteCity(id) {
-  setIsLoading(true);
-  try {
-    const res = await fetch(`${API_URL}/cities/${id}`, {
-      method: "DELETE",
-    });
+    case "ERROR":
+      return { ...state, isLoading: false, error: action.payload };
 
-    if (!res.ok) {
-      throw new Error("Failed to delete city");
-    }
-
-
-    setCities((cities) => cities.filter((city) => city.id !== id));
-  } catch (err) {
-    console.error("Error deleting city:", err.message);
-  } finally {
-    setIsLoading(false);
+    default:
+      return state;
   }
 }
 
-    return (
-      <CitiesContext.Provider
-        value={{
-          cities,
-          isLoading,
-          currentCity,
-          getCurrentCity,
-          createCity,
-          deleteCity,
-        }}
-      >
-        {children}
-      </CitiesContext.Provider>
-    );
+// Context Provider
+function CitiesProvider({ children }) {
+  const [{ isLoading, cities, currentCity, error }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+
+  // Fetch Cities on Mount
+  useEffect(() => {
+    async function fetchCities() {
+      dispatch({ type: "LOADING" });
+      try {
+        const res = await fetch(`${API_URL}/cities`);
+        if (!res.ok) throw new Error("Error fetching cities");
+        const data = await res.json();
+        dispatch({ type: "CITIES_LOADED", payload: data });
+      } catch (err) {
+        dispatch({ type: "ERROR", payload: err.message });
+      }
+    }
+    fetchCities();
+  }, []);
+
+  // Get Single City
+  async function getCurrentCity(id) {
+    dispatch({ type: "LOADING" });
+    try {
+      const res = await fetch(`${API_URL}/cities/${id}`);
+      if (!res.ok) throw new Error("Error fetching city data");
+      const data = await res.json();
+      dispatch({ type: "CURRENT_CITY_LOADED", payload: data });
+    } catch (err) {
+      dispatch({ type: "ERROR", payload: err.message });
+    }
+  }
+
+  // Create City
+  async function createCity(newCity) {
+    dispatch({ type: "LOADING" });
+    try {
+      const res = await fetch(`${API_URL}/cities`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newCity),
+      });
+      if (!res.ok) throw new Error("Error creating city");
+      const data = await res.json();
+      dispatch({ type: "CITY_CREATED", payload: data });
+    } catch (err) {
+      dispatch({ type: "ERROR", payload: err.message });
+    }
+  }
+
+  // Delete City
+  async function deleteCity(id) {
+    dispatch({ type: "LOADING" });
+    try {
+      const res = await fetch(`${API_URL}/cities/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Error deleting city");
+      dispatch({ type: "CITY_DELETED", payload: id });
+    } catch (err) {
+      dispatch({ type: "ERROR", payload: err.message });
+    }
+  }
+
+  return (
+    <CitiesContext.Provider
+      value={{
+        cities,
+        isLoading,
+        currentCity,
+        error,
+        getCurrentCity,
+        createCity,
+        deleteCity,
+      }}
+    >
+      {children}
+    </CitiesContext.Provider>
+  );
 }
 
-
-function useCities(){
-    const context = useContext(CitiesContext)
-    if(context === undefined) throw new Error("Context being used somewhere not supposed to be")
-    return context;
+// Custom Hook for using Cities Context
+function useCities() {
+  const context = useContext(CitiesContext);
+  if (!context)
+    throw new Error("useCities must be used within a CitiesProvider");
+  return context;
 }
 
-export { useCities, CitiesProvider}
+export { useCities, CitiesProvider };
