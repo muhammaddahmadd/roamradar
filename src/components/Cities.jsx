@@ -7,7 +7,7 @@ import { useCities } from "../contexts/CitiesContext";
 const Cities = () => {
   const {isLoading, cities} = useCities()
 
-  cities.map(city=> console.log(city))
+  console.log(cities)
 
 
 

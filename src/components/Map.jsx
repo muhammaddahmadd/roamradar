@@ -15,7 +15,7 @@ import Button from "./Button";
 import useUrlLocation from "../hooks/useUrlLocation";
 
 function Map() {
-  const [mapLat, mapLng] = useUrlLocation();
+  const [lat, lng] = useUrlLocation();
   const [mapPosition, setMapPosition] = useState([40, 0]);
 
   const { isLoading, position: geoLocation, getPosition } = useGeolocation();
@@ -28,10 +28,10 @@ function Map() {
   }, [geoLocation]);
 
 useEffect(() => {
-  if (mapLat && mapLng) {
-    setMapPosition([mapLat, mapLng]); //  Correct, passing as an array
+  if (lat && lng) {
+    setMapPosition([lat, lng]); //  Correct, passing as an array
   }
-}, [mapLat, mapLng]);
+}, [lat, lng]);
 
 
   

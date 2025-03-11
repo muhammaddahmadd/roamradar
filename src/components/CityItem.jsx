@@ -30,7 +30,7 @@ function CityItem({ city }) {
     emoji,
     date,
     id,
-    position: {lat: mapLat, lng: mapLng },
+    position: {lat, lng},
   } = city;
 
 
@@ -42,7 +42,7 @@ function CityItem({ city }) {
           " " +
           `${currentCity.id === id ? styles["cityItem--active"] : ""}`
         }
-        to={`${id}?lat=${mapLat}&lng=${mapLng}`}
+        to={`${id}?lat=${lat}&lng=${lng}`}
       >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}> {cityName}</h3>

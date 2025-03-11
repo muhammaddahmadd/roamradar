@@ -24,7 +24,7 @@ export function convertToEmoji(countryCode) {
 const BASE_URL =
   "https://api.bigdatacloud.net/data/reverse-geocode-client";
 function Form() {
-  const [mapLat, mapLng] = useUrlLocation();
+  const [lat, lng] = useUrlLocation();
 
   const navigate = useNavigate();
   const {createCity} = useCities();
@@ -40,11 +40,11 @@ function Form() {
 
 
   useEffect(()=> {
-    if (!mapLat & !mapLng) return
+    if (!lat & !lng) return
     async function getCityData() {
      try {
       setFormLoading(true)
-        const res = await fetch(`${BASE_URL}?latitude=${mapLat}&longitude=${mapLng}`);
+        const res = await fetch(`${BASE_URL}?latitude=${lat}&longitude=${lng}`);
         const data = await res.json();
        setCityName(data.city)
        setCountry(data.countryName)
@@ -56,10 +56,10 @@ function Form() {
       }
     }
     getCityData()
-  }, [mapLat, mapLng])
+  }, [lat, lng])
 
   if (formLoading) return <Spinner/>
-  if (!mapLat & !mapLng) return <Message message="Please add city correctly!!!"/>
+  if (!lat & !lng) return <Message message="Please add city correctly!!!"/>
 
 
  async function handleAddSubmission(e) {
@@ -71,7 +71,7 @@ function Form() {
       emoji,
       date,
       notes,
-      position: {mapLat, mapLng}
+      position: {lat, lng}
     }
 
    await createCity(newCity)
