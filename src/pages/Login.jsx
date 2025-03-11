@@ -29,7 +29,7 @@ async function handleSignIn(e){
 
 useEffect(() => {
   if (isAuthenticated) {
-    navigate("/app", { replace: true });
+    navigate("/app", { replace: true });// replace bcz to avoid it going back
   }
 }, [isAuthenticated, navigate]);
 
