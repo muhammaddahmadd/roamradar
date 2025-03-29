@@ -131,7 +131,7 @@ function CitiesProvider({ children }) {
   );
 }
 
-// Custom Hook for using Cities Context
+
 function useCities() {
   const context = useContext(CitiesContext);
   if (!context)
