@@ -16,8 +16,6 @@ import { AuthProvider } from "./contexts/useAuth";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
-
-//  const result =  twoSum([1, 2, 3], 5)
   console.log(result)
 
   return (
