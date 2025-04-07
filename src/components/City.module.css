@@ -11,6 +11,10 @@
   gap: 2rem;
 }
 
+.col {
+  position: relative;
+}
+
 .row {
   display: flex;
   flex-direction: column;
