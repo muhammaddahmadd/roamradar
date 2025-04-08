@@ -10,10 +10,10 @@ export default function Login() {
   const [password, setPassword] = useState("test123.");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
 
-async function handleSignIn(e){
+  async function handleSignIn(e) {
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -25,14 +25,13 @@ async function handleSignIn(e){
     } finally {
       setLoading(false);
     }
-  };
-
-useEffect(() => {
-  if (isAuthenticated) {
-    navigate("/app", { replace: true });// replace bcz to avoid it going back
   }
-}, [isAuthenticated, navigate]);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/app", { replace: true }); // replace bcz to avoid it going back
+    }
+  }, [isAuthenticated, navigate]);
 
   const isValid = email.includes("@") && password.length > 6;
 
