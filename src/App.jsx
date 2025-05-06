@@ -16,8 +16,6 @@ import { AuthProvider } from "./contexts/useAuth";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
-  console.log(result)
-
   return (
     <AuthProvider>
       <CitiesProvider>
