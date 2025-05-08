@@ -31,7 +31,7 @@ function App() {
                   <AppLayout />
                 </ProtectedRoute>
               }
-            >
+              >
               <Route index element={<Navigate replace to="cities" />} />
               <Route path="cities" element={<Cities />} />
               <Route path="cities/:id" element={<City />} />
