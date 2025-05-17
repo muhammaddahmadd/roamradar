@@ -131,7 +131,6 @@ function CitiesProvider({ children }) {
   );
 }
 
-
 function useCities() {
   const context = useContext(CitiesContext);
   if (!context)
