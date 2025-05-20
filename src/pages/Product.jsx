@@ -18,9 +18,7 @@ export default function Product() {
             perspiciatis?
           </p>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-            doloribus libero sunt expedita ratione iusto, magni, id sapiente
-            sequi officiis et.
+            Some lorum ipsum content here...
           </p>
         </div>
       </section>
