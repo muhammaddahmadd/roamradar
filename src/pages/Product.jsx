@@ -7,7 +7,7 @@ export default function Product() {
       <section>
         <img
           src="img-1.jpg"
-          alt="person with dog overlooking mountain with sunset"
+          alt="person with dog"
         />
         <div>
           <h2>About WorldWide.</h2>
