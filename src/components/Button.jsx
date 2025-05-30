@@ -6,5 +6,4 @@ function Button({type, onClick, children}) {
         </button>
     )
 }
-
 export default Button
