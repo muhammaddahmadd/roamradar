@@ -100,7 +100,6 @@ function CitiesProvider({ children }) {
       dispatch({ type: "ERROR", payload: err.message });
     }
   }
-
   // Delete City
   async function deleteCity(id) {
     dispatch({ type: "LOADING" });
