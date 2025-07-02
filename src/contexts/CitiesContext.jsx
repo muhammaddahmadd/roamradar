@@ -55,7 +55,7 @@ function CitiesProvider({ children }) {
     initialState
   );
 
-  // Fetch Cities on Mount
+  // Fetch Cities on Mount 
   useEffect(() => {
     async function fetchCities() {
       dispatch({ type: "LOADING" });
