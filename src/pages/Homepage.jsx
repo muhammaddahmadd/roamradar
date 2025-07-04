@@ -12,6 +12,7 @@ export default function Homepage() {
           <br />
           RoamRadar keeps track of your adventures.
         </h1>
+        
         <h2>
           A world map that tracks your footsteps into every city you can think
           of. Never forget your wonderful experiences and show your friends how
