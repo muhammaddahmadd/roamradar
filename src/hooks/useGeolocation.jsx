@@ -8,7 +8,6 @@ console.log(error);
   function getPosition() {
     if (!navigator.geolocation)
       return setError("Your browser does not support geolocation");
-
     setIsLoading(true);// hook to get current position
     navigator.geolocation.getCurrentPosition(
       (pos) => {
