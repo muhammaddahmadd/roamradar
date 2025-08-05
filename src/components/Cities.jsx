@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Spinner from "./Spinner";
 import CityItem from "./CityItem";
 import styles from "./Cities.module.css";
@@ -20,10 +19,6 @@ const Cities = () => {
   );
 };
 
-// Define PropTypes
-Cities.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  cities: PropTypes.array.isRequired,
-};
+// Remove PropTypes, not needed for context-based component
 
 export default Cities;
