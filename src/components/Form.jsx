@@ -46,6 +46,7 @@ function Form() {
       setFormLoading(true)
         const res = await fetch(`${BASE_URL}?latitude=${lat}&longitude=${lng}`);
         const data = await res.json();
+        console.log(data, "getting the data here..")
        setCityName(data.city)
        setCountry(data.countryName)
        setEmoji(convertToEmoji(data.countryCode));
