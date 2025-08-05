@@ -2,33 +2,38 @@ import { useEffect, useState } from "react";
 import PageNav from "../components/PageNav";
 import styles from "./Login.module.css";
 import { useAuth } from "../contexts/useAuth";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ranaahmad131@gmail.com");
+  const [password, setPassword] = useState("test123.");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, isAuthenticated, isLoading, error, clearError } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
   async function handleSignIn(e) {
     e.preventDefault();
-    clearError();
+    setError(null);
+    setLoading(true);
 
     try {
       await login(email, password);
     } catch (error) {
-      // Error is already handled in the context
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/app", { replace: true });
+      navigate("/app", { replace: true }); // replace bcz to avoid it going back
     }
   }, [isAuthenticated, navigate]);
 
-  const isValid = email.includes("@") && password.length >= 6;
+  const isValid = email.includes("@") && password.length > 6;
 
   return (
     <main className={styles.login}>
@@ -39,11 +44,8 @@ export default function Login() {
           <input
             type="email"
             id="email"
-            placeholder="ranaahmad131@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={isLoading}
           />
         </div>
 
@@ -52,22 +54,15 @@ export default function Login() {
           <input
             type="password"
             id="password"
-            placeholder="test123."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={isLoading}
           />
         </div>
 
-        {error && (
-          <div className={styles.error}>
-            <p>{error}</p>
-          </div>
-        )}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <Button type="primary" disabled={!isValid || isLoading}>
-          {isLoading ? "Signing In..." : "Sign In"}
+        <Button type="primary" disabled={!isValid || loading}>
+          {loading ? "Signing In..." : "Sign In"}
         </Button>
       </form>
     </main>

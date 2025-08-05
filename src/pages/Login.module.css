@@ -24,12 +24,3 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-
-.error {
-  background-color: #dc3545;
-  color: white;
-  padding: 1rem;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 1.4rem;
-}

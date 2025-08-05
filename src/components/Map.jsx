@@ -6,14 +6,13 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useCities } from "../contexts/CitiesContext";
 import styles from "./Map.module.css";
 import Button from "./Button";
 import useUrlLocation from "../hooks/useUrlLocation";
-import PropTypes from "prop-types";
 
 function Map() {
   const [lat, lng] = useUrlLocation();
@@ -83,10 +82,6 @@ function ChangeCenter({ position }) {
   }
   return null;
 }
-
-ChangeCenter.propTypes = {
-  position: PropTypes.arrayOf(PropTypes.number).isRequired,
-};
 
 
 function DetectClick() {

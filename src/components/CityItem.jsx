@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./CityItem.module.css";
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
 import { useCities } from "../contexts/CitiesContext";
 
 const formatDate = (date) =>
@@ -21,6 +21,7 @@ function CityItem({ city }) {
       console.error("Invalid city ID");
       return;
     }
+    console.log("Deleting city with ID:", id);
     await deleteCity(id);
   }
 

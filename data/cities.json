@@ -1,0 +1,16 @@
+{
+  "cities": [
+    {
+      "id": "7d0a",
+      "cityName": "Bardenas Reales",
+      "country": "",
+      "emoji": "🇪🇸",
+      "date": "2025-03-10T07:04:44.126Z",
+      "notes": "",
+      "position": {
+        "lat": "42.293564192170095",
+        "lng": "-1.56005859375"
+      }
+    }
+  ]
+}

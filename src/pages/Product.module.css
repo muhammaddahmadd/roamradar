@@ -16,83 +16,19 @@
 
 .product img {
   width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .product h2 {
   font-size: 4rem;
   line-height: 1.2;
   margin-bottom: 3rem;
-  color: var(--color-light--1);
 }
 
 .product p {
   font-size: 1.6rem;
   margin-bottom: 2rem;
-  line-height: 1.6;
-  color: var(--color-light--2);
-}
-
-.product ul {
-  list-style: none;
-  margin: 2rem 0;
-  padding: 0;
-}
-
-.product li {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem 0;
-  color: var(--color-light--2);
-  line-height: 1.5;
-}
-
-.ctaButton {
-  background-color: var(--color-brand--1);
-  color: var(--color-dark--1);
-  border: none;
-  padding: 1.2rem 2.4rem;
-  font-size: 1.6rem;
-  font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 2rem;
-}
-
-.ctaButton:hover {
-  background-color: var(--color-brand--2);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .product section a {
   margin-top: 2rem;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-  .product section {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-    width: 95%;
-  }
-  
-  .product h2 {
-    font-size: 3rem;
-  }
-  
-  .product p {
-    font-size: 1.4rem;
-  }
-  
-  .product li {
-    font-size: 1.3rem;
-  }
-  
-  .ctaButton {
-    font-size: 1.4rem;
-    padding: 1rem 2rem;
-  }
 }

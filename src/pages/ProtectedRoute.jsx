@@ -1,28 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/useAuth";
+import { useAuth } from "../contexts/useAuth"
 import { useEffect } from "react";
-import SpinnerFullPage from "../components/SpinnerFullPage";
-import PropTypes from "prop-types";
 
-function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading } = useAuth();
-  const navigate = useNavigate();
+function ProtectedRoute({children}) {
+    const { isAuthenticated } = useAuth();
+    const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      navigate("/login", { replace: true });
-    }
-  }, [isAuthenticated, isLoading, navigate]);
+    useEffect(()=> {
+        if(!isAuthenticated) {
+        navigate("/")
+        }
+    },[isAuthenticated, navigate])
 
-  if (isLoading) {
-    return <SpinnerFullPage />;
-  }
 
-  return isAuthenticated ? children : null;
+    return isAuthenticated? children : null
 }
 
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default ProtectedRoute;
+export default ProtectedRoute
