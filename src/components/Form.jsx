@@ -31,22 +31,26 @@ function Form() {
 
   const [formLoading, setFormLoading] = useState(false);
   const [country, setCountry] = useState("");
-  // const [formError, setFormError] = useState("")
+  const [formError, setFormError] = useState("")
   const [emoji, setEmoji] = useState("")
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
   const [cityName, setCityName] = useState("");
-
+  
 
 
   useEffect(()=> {
+    setFormError("")
     if (!lat & !lng) return
     async function getCityData() {
      try {
       setFormLoading(true)
         const res = await fetch(`${BASE_URL}?latitude=${lat}&longitude=${lng}`);
         const data = await res.json();
-        console.log(data, "getting the data here..")
+        console.log(data)
+        if (data.city === "" || data.countryName === "") {
+           setFormError("Please click on the map to select a valid city");
+        }
        setCityName(data.city)
        setCountry(data.countryName)
        setEmoji(convertToEmoji(data.countryCode));
@@ -59,13 +63,10 @@ function Form() {
     getCityData()
   }, [lat, lng])
 
-  if (formLoading) return <Spinner/>
-  if (!lat & !lng) return <Message message="Please add city correctly!!!"/>
-
-
- async function handleAddSubmission(e) {
+  
+  async function handleAddSubmission(e) {
     e.preventDefault()
-
+    
     const newCity = {
       cityName,
       country,
@@ -74,14 +75,15 @@ function Form() {
       notes,
       position: {lat, lng}
     }
-
-   await createCity(newCity)
-
+    await createCity(newCity)
     navigate("/app/cities")
     setCityName("")
     setDate("")
     setNotes("")
   }
+  if (formLoading) return <Spinner/>
+  if (!lat & !lng) return <Message message="Please add city correctly!!!"/>
+  if (formError) return <p>{formError}</p>
 
   return (
     <form className={styles.form} onSubmit={(e)=>handleAddSubmission(e)}>

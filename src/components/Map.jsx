@@ -20,6 +20,7 @@ function Map() {
 
   const { isLoading, position: geoLocation, getPosition } = useGeolocation();
   const { cities } = useCities();
+  console.log(cities)
 
   useEffect(() => {
     if (geoLocation) {
@@ -55,20 +56,21 @@ useEffect(() => {
         {cities
           .filter(
             (city) =>
+              
               city.position?.lat !== undefined &&
               city.position?.lng !== undefined
           ) // Ensure lat/lng exist
           .map((city) => (
+            
             <Marker
               key={city.id}
               position={[city.position.lat, city.position.lng]}
             >
-              <Popup>{city.name || "A city location"}</Popup>
+              <Popup>{city.cityName }</Popup>
             </Marker>
           ))}
 
         <ChangeCenter position={mapPosition} />
-
         <DetectClick />
       </MapContainer>
     </div>
@@ -85,6 +87,7 @@ function ChangeCenter({ position }) {
 
 
 function DetectClick() {
+  console.log("clicking...")
   const navigate = useNavigate();
   useMapEvents({
     click: (e) => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)});
