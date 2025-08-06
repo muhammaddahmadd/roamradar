@@ -1,13 +1,11 @@
-// "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
-
 import { useEffect, useState } from "react";
-
 import styles from "./Form.module.css";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import BackButton from "./BackButton";
 import useUrlLocation from "../hooks/useUrlLocation";
-import Spinner from "./Spinner"
+import Spinner from "./Spinner";
+import Message from "./Message";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,72 +19,71 @@ export function convertToEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
-const BASE_URL =
-  "https://api.bigdatacloud.net/data/reverse-geocode-client";
+const BASE_URL = import.meta.env.VITE_GEOCODING_API_URL;
+
 function Form() {
   const [lat, lng] = useUrlLocation();
-
   const navigate = useNavigate();
-  const {createCity} = useCities();
+  const { createCity } = useCities();
 
   const [formLoading, setFormLoading] = useState(false);
   const [country, setCountry] = useState("");
-  const [formError, setFormError] = useState("")
-  const [emoji, setEmoji] = useState("")
+  const [formError, setFormError] = useState("");
+  const [emoji, setEmoji] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
   const [cityName, setCityName] = useState("");
-  
 
-
-  useEffect(()=> {
+  useEffect(() => {
     setFormError("")
-    if (!lat & !lng) return
+    if (!lat && !lng) return;
     async function getCityData() {
-     try {
-      setFormLoading(true)
+      try {
+        setFormLoading(true);
         const res = await fetch(`${BASE_URL}?latitude=${lat}&longitude=${lng}`);
         const data = await res.json();
-        console.log(data)
-        if (data.city === "" || data.countryName === "") {
-           setFormError("Please click on the map to select a valid city");
+        if(data.city === "" || data.countryName === ""){
+          setFormError("Please click on the map to get the city")
         }
-       setCityName(data.city)
-       setCountry(data.countryName)
-       setEmoji(convertToEmoji(data.countryCode));
-      }catch(err) {
-        setFormError(err.message)
+        console.log(data)
+        setCityName(data.city);
+        setCountry(data.countryName);
+        setEmoji(convertToEmoji(data.countryCode));
+      } catch (err) {
+        setFormError(err.message);
       } finally {
-       setFormLoading(false);
+        setFormLoading(false);
       }
     }
-    getCityData()
-  }, [lat, lng])
+    getCityData();
+  }, [lat, lng]);
 
-  
+  if (formLoading) return <Spinner />;
+  if (!lat && !lng) return <Message message="Please add city correctly!!!" />;
+  if (formError) return <Message message={formError} />;
+
   async function handleAddSubmission(e) {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     const newCity = {
       cityName,
       country,
       emoji,
       date,
       notes,
-      position: {lat, lng}
-    }
-    await createCity(newCity)
-    navigate("/app/cities")
-    setCityName("")
-    setDate("")
-    setNotes("")
+      position: { lat, lng },
+    };
+
+    await createCity(newCity);
+
+    navigate("/app/cities");
+    setCityName("");
+    setDate("");
+    setNotes("");
   }
-  if (formLoading) return <Spinner/>
-  if (!lat & !lng) return <Message message="Please add city correctly!!!"/>
-  if (formError) return <p>{formError}</p>
 
   return (
-    <form className={styles.form} onSubmit={(e)=>handleAddSubmission(e)}>
+    <form className={styles.form} onSubmit={(e) => handleAddSubmission(e)}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input

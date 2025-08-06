@@ -9,19 +9,9 @@ const { isLoading, cities } = useCities();
       new Map(cities.map(city => [city.country, city])).values()
     );
 
-    // const uniqueCountryList = cities.reduce((arr, cur) => {
-    //   if (arr.some((city) => city.country === cur.country)) {
-    //     return arr; // If country already exists, return the array as is
-    //   } else {
-    //     return [...arr, cur]; // Otherwise, add the current city
-    //   }
-    // }, []);
-
-
-
-
     if (isLoading) return <Spinner/>
     if(!cities.length) return <Message message="Please start adding countries"/>
+    
     return (
       <ul className={styles.countryList}>
         {uniqueCountries.map((country) => {

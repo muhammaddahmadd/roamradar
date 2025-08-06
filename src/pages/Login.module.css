@@ -1,8 +1,8 @@
 .login {
-  margin: 2.5rem;
+  /* margin: 2.5rem; */
   padding: 2.5rem 5rem;
   background-color: var(--color-dark--1);
-  min-height: calc(100vh - 5rem);
+  min-height: 100vh;
 }
 
 .form {
@@ -23,4 +23,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.error {
+  background-color: #dc3545;
+  color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1.4rem;
 }

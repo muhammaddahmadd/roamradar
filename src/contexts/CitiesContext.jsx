@@ -1,9 +1,9 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
-
+import PropTypes from "prop-types";
 const CitiesContext = createContext();
 
 // API URL
-const API_URL = "https://fake-api-yyfi.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Initial State
 const initialState = {
@@ -12,6 +12,8 @@ const initialState = {
   currentCity: {},
   error: "",
 };
+
+
 
 // Reducer Function
 function reducer(state, action) {
@@ -128,6 +130,10 @@ function CitiesProvider({ children }) {
     </CitiesContext.Provider>
   );
 }
+
+CitiesProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 function useCities() {
   const context = useContext(CitiesContext);

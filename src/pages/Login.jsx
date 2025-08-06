@@ -2,38 +2,33 @@ import { useEffect, useState } from "react";
 import PageNav from "../components/PageNav";
 import styles from "./Login.module.css";
 import { useAuth } from "../contexts/useAuth";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 
 export default function Login() {
-  const [email, setEmail] = useState("ranaahmad131@gmail.com");
-  const [password, setPassword] = useState("test123.");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, isLoading, error, clearError } = useAuth();
 
   async function handleSignIn(e) {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
+    clearError();
 
     try {
       await login(email, password);
     } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
+      // Error is already handled in the context
     }
   }
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/app", { replace: true }); // replace bcz to avoid it going back
+      navigate("/app", { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
-  const isValid = email.includes("@") && password.length > 6;
+  const isValid = email.includes("@") && password.length >= 6;
 
   return (
     <main className={styles.login}>
@@ -46,6 +41,8 @@ export default function Login() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isLoading}
           />
         </div>
 
@@ -56,13 +53,19 @@ export default function Login() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={isLoading}
           />
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && (
+          <div className={styles.error}>
+            <p>{error}</p>
+          </div>
+        )}
 
-        <Button type="primary" disabled={!isValid || loading}>
-          {loading ? "Signing In..." : "Sign In"}
+        <Button type="primary" disabled={!isValid || isLoading}>
+          {isLoading ? "Signing In..." : "Sign In"}
         </Button>
       </form>
     </main>
