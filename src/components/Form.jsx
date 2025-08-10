@@ -45,7 +45,7 @@ function Form() {
         if(data.city === "" || data.countryName === ""){
           setFormError("Please click on the map to get the city")
         }
-        console.log(data)
+        // console.log(data)
         setCityName(data.city);
         setCountry(data.countryName);
         setEmoji(convertToEmoji(data.countryCode));

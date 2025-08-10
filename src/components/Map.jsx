@@ -24,7 +24,7 @@ function Map() {
 
   const { isLoading, position: geoLocation, getPosition } = useGeolocation();
   const { cities } = useCities();
-  console.log(cities)
+  // console.log(cities)
 
   useEffect(() => {
     if (geoLocation) {
@@ -91,7 +91,7 @@ function ChangeCenter({ position }) {
 
 
 function DetectClick() {
-  console.log("clicking...")
+  // console.log("clicking...")
   const navigate = useNavigate();
   useMapEvents({
     click: (e) => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)});

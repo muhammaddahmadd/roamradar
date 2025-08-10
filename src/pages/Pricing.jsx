@@ -5,6 +5,7 @@ export default function Pricing() {
   return (
     <main className={styles.product}>
       <PageNav />
+
       <section>
         <div>
           <h2>
@@ -13,7 +14,7 @@ export default function Pricing() {
             Just $9/month.
           </h2>
           <p>
-            Unlock unlimited access to RoamRadar's premium features and start 
+            Unlock unlimited access to RoamRadar's premium features and start
             building your perfect travel journey today.
           </p>
           <p>
@@ -28,17 +29,19 @@ export default function Pricing() {
             <li>🌍 Access to global city database</li>
           </ul>
           <p>
-            <strong>Free Plan:</strong> Track up to 5 cities with basic features.
+            <strong>Free Plan:</strong> Track up to 5 cities with basic
+            features.
             <br />
-            <strong>Premium Plan:</strong> Unlimited cities with all features for just $9/month.
+            <strong>Premium Plan:</strong> Unlimited cities with all features
+            for just $9/month.
           </p>
           <button className={styles.ctaButton}>
             Start Your Adventure Today
           </button>
         </div>
-        <img 
-          src="/imgs/img-1.jpg" 
-          alt="Travel destinations and pricing overview" 
+        <img
+          src="/imgs/img-1.jpg"
+          alt="Travel destinations and pricing overview"
         />
       </section>
     </main>
