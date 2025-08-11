@@ -7,7 +7,7 @@ export default function Product() {
       <PageNav />
       <section>
         <img
-          src="dist/imgs/img-2.jpg"
+          src="/imgs/img-2.jpg"
           alt="Travel destinations around the world"
         />
         <div>
