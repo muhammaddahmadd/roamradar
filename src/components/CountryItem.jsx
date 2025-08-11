@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 function CountryItem({ country, emoji }) {
   return (
     <li>
-      <Link className={styles.countryItem} to={`${country}`}>
+      <p className={styles.countryItem} to={`${country}`}>
         <span>{emoji}</span>
         <span>{country}</span>
-      </Link>
+      </p>
     </li>
   );
 }

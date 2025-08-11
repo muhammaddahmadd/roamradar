@@ -34,7 +34,7 @@ export default function Pricing() {
           </button>
         </div>
         <img
-          src="/imgs/img-1.jpg"
+          src="dist/imgs/img-1.jpg"
           alt="Travel destinations and pricing overview"
         />
       </section>
