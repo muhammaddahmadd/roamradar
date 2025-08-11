@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 function Sidebar() {
     return <div className={styles.sidebar}>
 
-        <Logo/>
+        {/* <Logo/> */}
         <AppNav/>  
         <Outlet/>
         {/* <Footer/>   */}

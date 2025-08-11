@@ -26,6 +26,8 @@ function Form() {
   const navigate = useNavigate();
   const { createCity } = useCities();
 
+  // console.log(createCity, "create city")
+  
   const [formLoading, setFormLoading] = useState(false);
   const [country, setCountry] = useState("");
   const [formError, setFormError] = useState("");
@@ -73,7 +75,7 @@ function Form() {
       notes,
       position: { lat, lng },
     };
-
+    console.log(newCity, "checking what is the new city here..")
     await createCity(newCity);
 
     navigate("/app/cities");

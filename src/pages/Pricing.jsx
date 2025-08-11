@@ -28,13 +28,7 @@ export default function Pricing() {
             <li>🔒 Secure cloud storage for your travel data</li>
             <li>🌍 Access to global city database</li>
           </ul>
-          <p>
-            <strong>Free Plan:</strong> Track up to 5 cities with basic
-            features.
-            <br />
-            <strong>Premium Plan:</strong> Unlimited cities with all features
-            for just $9/month.
-          </p>
+         
           <button className={styles.ctaButton}>
             Start Your Adventure Today
           </button>

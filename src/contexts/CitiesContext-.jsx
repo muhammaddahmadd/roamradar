@@ -38,12 +38,13 @@ function CitiesProvider({ children }) {
   }, []);
 
   async function getCurrentCity(id) {
+    console.log(id, "checking what the id is")
     try {
       const res = await fetch(`${API_URL}/cities/${id}`);
       if (res.ok) {
         const data = await res.json();
-      
-        setCurrentCity(data);
+        console.log(data, "checking what the data is")
+        setCurrentCity(data); 
       } else {
         throw new Error("Error happened fetching data");
       }
