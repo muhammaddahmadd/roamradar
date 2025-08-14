@@ -13,9 +13,7 @@ const formatDate = (date) =>
 
 function CityItem({ city }) {
   const { currentCity, deleteCity } = useCities();
-
-
-
+  
   async function handleDelete(id) {
     if (!id) {
       console.error("Invalid city ID");
@@ -29,9 +27,8 @@ function CityItem({ city }) {
     emoji,
     date,
     id,
-    position: {lat, lng},
+    position: { lat, lng },
   } = city;
-
 
   return (
     <li>
