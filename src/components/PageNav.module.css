@@ -32,3 +32,11 @@ a.ctaLink:visited {
   padding: 0.8rem 2rem;
   border-radius: 7px;
 }
+
+a.ctaLinkSignUp:link,
+a.ctaLinkSignUp:visited {
+  background-color: rgb(242, 190, 47);
+  color: var(--color-dark--0);
+  padding: 0.8rem 2rem;
+  border-radius: 7px;
+}
