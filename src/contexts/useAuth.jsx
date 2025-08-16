@@ -48,7 +48,7 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [ state, dispatch] = useReducer(reducer, initialState);
   const { isAuthenticated, user, isLoading, error } = state;
 
   // Sync user state with Firebase auth
