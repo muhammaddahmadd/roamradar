@@ -13,6 +13,7 @@ import Form from "./components/Form";
 import { CitiesProvider } from "./contexts/CitiesContext";
 import { AuthProvider } from "./contexts/useAuth";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="product" element={<Product />} />
             <Route path="pricing" element={<Pricing />} />
+            <Route path="signup" element={<SignUp />} />
             <Route
               path="app"
               element={

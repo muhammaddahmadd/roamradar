@@ -1,16 +1,19 @@
 .app {
   height: 100vh;
-  /* padding: 2.4rem; */
-  overscroll-behavior-y: none;
   display: flex;
   position: relative;
+  overscroll-behavior-y: none;
 }
 
+:global(.leaflet-control-attribution) {
+  font-size: 1.2rem;
+}
 
-
-@media screen and (max-width: 768px) { 
+@media (max-width: 768px) {
   .app {
-    display: flex;
+    height: auto;
     flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
   }
 }

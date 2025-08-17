@@ -1,4 +1,13 @@
 .logo {
   height: 5.2rem;
-  /* mix-blend-mode: exclusion; */
+}
+
+.main {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    height: 4rem;
+  }
 }

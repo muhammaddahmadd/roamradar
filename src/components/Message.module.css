@@ -4,4 +4,16 @@
   width: 80%;
   margin: 2rem auto;
   font-weight: 600;
+  padding: 1.2rem;
+  border-radius: 5px;
+  background-color: var(--color-dark--2);
+}
+
+@media (max-width: 768px) {
+  .message {
+    width: 90%;
+    font-size: 1.6rem;
+    margin: 1.5rem auto;
+    padding: 1rem;
+  }
 }

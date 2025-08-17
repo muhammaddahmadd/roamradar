@@ -44,4 +44,43 @@
 .city a:visited {
   font-size: 1.6rem;
   color: var(--color-brand--1);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: all 0.2s;
+  word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  .city {
+    padding: 1.5rem;
+    max-height: none;
+    margin-bottom: 2rem;
+  }
+
+  .city h6 {
+    font-size: 1rem;
+  }
+
+  .city h3 {
+    font-size: 1.6rem;
+  }
+
+  .city h3 span {
+    font-size: 2.8rem;
+  }
+
+  .city p {
+    font-size: 1.4rem;
+  }
+
+  .city a:link,
+  .city a:visited {
+    font-size: 1.4rem;
+    display: inline-block;
+    padding: 0.8rem 0;
+  }
+
+  .row {
+    gap: 0.8rem;
+  }
 }

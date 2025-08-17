@@ -7,6 +7,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .primary {
@@ -32,4 +33,27 @@
   background-color: var(--color-brand--2);
   color: var(--color-dark--1);
   box-shadow: 0 0.4rem 1.2rem rgba(36, 42, 46, 0.16);
+}
+
+@media (max-width: 768px) {
+  .btn {
+    padding: 1rem 2rem; /* Larger touch target */
+    font-size: 1.4rem;
+  }
+
+  .position {
+    bottom: 8rem; /* Move up to avoid conflict with mobile navigation */
+    padding: 1.2rem 2.4rem;
+    font-size: 1.3rem;
+    width: auto;
+    min-width: 200px;
+    text-align: center;
+  }
+
+  /* Remove hover states on touch devices */
+  @media (hover: none) {
+    .btn:hover {
+      transform: none;
+    }
+  }
 }
