@@ -7,7 +7,7 @@ import styles from './SignUp.module.css';
 import PageNav from '../components/PageNav';
 import Button from '../components/Button';
 
-const SignUp = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -90,4 +90,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Signup;
