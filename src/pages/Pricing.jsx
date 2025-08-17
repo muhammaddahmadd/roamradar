@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import PageNav from "../components/PageNav";
 import styles from "./Product.module.css";
 
 export default function Pricing() {
+  const navigate = useNavigate();
   return (
     <main className={styles.product}>
       <PageNav />
@@ -29,7 +31,10 @@ export default function Pricing() {
             <li>🌍 Access to global city database</li>
           </ul>
          
-          <button className={styles.ctaButton}>
+          <button 
+            className={styles.ctaButton} 
+            onClick={() => navigate("/signup")}
+          >
             Start Your Adventure Today
           </button>
         </div>

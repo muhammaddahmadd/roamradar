@@ -24,11 +24,26 @@ function PageNav() {
     return (
       <nav className={styles.nav}>
         <Logo />
-        <div className={styles.desktopNav}>
-          {navLinks}
-        </div>
+        <div className={styles.desktopNav}>{navLinks}</div>
         <HamburgerMenu>
-          {navLinks}
+          <ul>
+            <li>
+              <NavLink to="/pricing">Pricing</NavLink>
+            </li>
+            <li>
+              <NavLink to="/product">Product</NavLink>
+            </li>
+            <li>
+              <NavLink to="/login" >
+                Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup" >
+                Sign Up
+              </NavLink>
+            </li>
+          </ul>
         </HamburgerMenu>
       </nav>
     );
