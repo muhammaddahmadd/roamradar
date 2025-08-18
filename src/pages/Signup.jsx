@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import styles from './SignUp.module.css';
+import styles from './Signup.module.css';
 import PageNav from '../components/PageNav';
 import Button from '../components/Button';
 
